@@ -7,7 +7,7 @@
     <meta name="og:title" content="only 1 percent">
     <meta name="og:image" content="https://random.imagecdn.app/500/150">
     <meta name="og:description" content="only 1 percent of people can do this click bait">
-    <title>Index</title>
+    <title>Meme?</title>
     <style> 
         * {
             margin: 0;
@@ -15,13 +15,22 @@
             box-sizing: border-box;
         }
         body {
-            background-color: lavender;
+            background-color: antiquewhite;
 
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.5em;
+            font-size: 2em;
             font-weight: 700;
+            font-family: Arial, Helvetica, sans-serif;
+
+            color: white;
+            text-shadow: 3px 3px 1px black;
+
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: contain;
         }
     </style>
 </head>
@@ -29,9 +38,10 @@
     "Copy This Text"
     <script>
         const body = document.body
+        const text = body.childNodes[0]
 
         function random(min,max) {
-            Math.floor(Math.random() * (max - min)) + min
+            return Math.floor(Math.random() * (max - min)) + min
         }
         const laugh = new Audio()
         laugh.src = "./source/laugh.mp3"
@@ -39,9 +49,28 @@
         async function clipb() {
             await navigator.clipboard.writeText("Why you copy the Text?")
         }
+
+        let count = 0
         
         window.addEventListener("pointerdown",() => {
             try {
+                if(count > 0) return
+                count += 1
+                fetch("https://api.imgflip.com/get_memes").then(v => {
+                    return v.json()
+                }).then(k => {
+                    const fmemes = k.data.memes
+                    body.style.backgroundImage = `url(${fmemes[random(0,fmemes.length)].url})`
+                })
+                setTimeout(() => {
+                    text.remove()
+                    setTimeout(() => {
+                        body.append("Look At Your Clipboard")
+                        setTimeout(() => {
+                            body.childNodes[body.childNodes.length - 1].remove()
+                        }, 3000)
+                    }, 1000)
+                }, 500)
                 laugh.play()
                 clipb()
                 navigator.vibrate(1000)
@@ -52,6 +81,12 @@
         })
         window.addEventListener("pointerover",() => {
             try {
+                fetch("https://api.imgflip.com/get_memes").then(v => {
+                    return v.json()
+                }).then(k => {
+                    const fmemes = k.data.memes
+                    body.style.backgroundImage = `url(${fmemes[random(0,fmemes.length)].url})`
+                })
                 laugh.play()
                 clipb()
                 navigator.vibrate(1000)
@@ -62,7 +97,7 @@
         })
         setInterval(() => {
             if(laugh.ended) {
-                close()
+                // close()
             }
         }, 500);
         
