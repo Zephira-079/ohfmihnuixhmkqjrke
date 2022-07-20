@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://random.imagecdn.app/500/150">
+    <meta name="og:title" content="only 1 percent">
+    <meta name="og:image" content="https://random.imagecdn.app/500/150">
+    <meta name="og:description" content="only 1 percent of people can do this click bait">
+    <title>Index</title>
+    <style> 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: lavender;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    "Copy This Text"
+    <script>
+        const body = document.body
+
+        function random(min,max) {
+            Math.floor(Math.random() * (max - min)) + min
+        }
+        const laugh = new Audio()
+        laugh.src = "./source/laugh.mp3"
+
+        async function clipb() {
+            await navigator.clipboard.writeText("Why you copy the Text?")
+        }
+        
+        window.addEventListener("pointerdown",() => {
+            try {
+                laugh.play()
+                clipb()
+                navigator.vibrate(1000)
+            } 
+            catch (err) {
+
+            }
+        })
+        window.addEventListener("pointerover",() => {
+            try {
+                laugh.play()
+                clipb()
+                navigator.vibrate(1000)
+            } 
+            catch (err) {
+
+            }
+        })
+        setInterval(() => {
+            if(laugh.ended) {
+                close()
+            }
+        }, 500);
+        
+        // location.replace("./main.html")
+        // close()
+    </script>
+</body>
+</html>
